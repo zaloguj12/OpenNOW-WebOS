@@ -81,11 +81,11 @@ The exact package filename can vary with the installed webOS CLI version.
 Every push to `3.0` runs the GitHub Actions workflow in
 `.github/workflows/release.yml`. It packages the application with the webOS
 CLI and publishes a GitHub release with an IPK attached. The artifact is named
-`NN-3.ipk`, where `NN` is the two-digit GitHub release run number, for example
+`NN-3.ipk`, where `NN` is the two-digit 3.0 nightly sequence, for example
 `01-3.ipk` or `15-3.ipk`. These releases use generated release notes, are
-marked as prereleases, and use tags such as `3.0-nightly-01`. Pushes to
-`3.0-dev` do not create releases. The current release sequence has been reset
-so the next normal push starts at `00-3.ipk`.
+marked as prereleases, and use tags such as `3.0-nightly-01`. The sequence is
+independent of 4.0 and starts at `00-3.ipk` when no 3.0 nightly releases exist.
+Pushes to `3.0-dev` do not create releases.
 
 ## Input
 
