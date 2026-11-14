@@ -1,0 +1,340 @@
+<!--
+Copyright (c) 2024 LG Electronics Inc.
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>OpenNOW</title>
+  <!-- Google Fonts for rich UI aesthetics -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  
+  <!-- Global error reporting overlay for TV debugging -->
+  <script type="text/javascript">
+    window.onload = function() {
+      var logContainer = document.createElement("div");
+      logContainer.id = "tv-debug-log";
+      logContainer.style.position = "absolute";
+      logContainer.style.top = "10px";
+      logContainer.style.right = "10px";
+      logContainer.style.width = "400px";
+      logContainer.style.height = "90vh";
+      logContainer.style.background = "rgba(0,0,0,0.8)";
+      logContainer.style.color = "#00ff00";
+      logContainer.style.padding = "10px";
+      logContainer.style.zIndex = "999999";
+      logContainer.style.fontSize = "12px";
+      logContainer.style.fontFamily = "monospace";
+      logContainer.style.overflowY = "auto";
+      logContainer.style.pointerEvents = "none";
+      document.body.appendChild(logContainer);
+
+      var originalError = console.error;
+      var originalLog = console.log;
+      var originalWarn = console.warn;
+
+      function appendLog(type, args) {
+        var msg = Array.prototype.slice.call(args).map(function(a) {
+          return (typeof a === "object") ? JSON.stringify(a) : a;
+        }).join(" ");
+        var div = document.createElement("div");
+        div.style.marginBottom = "5px";
+        div.style.color = type === "ERROR" ? "#ff5555" : (type === "WARN" ? "#ffff55" : "#55ff55");
+        div.innerText = "[" + type + "] " + msg;
+        logContainer.appendChild(div);
+        logContainer.scrollTop = logContainer.scrollHeight;
+      }
+
+      console.error = function() { appendLog("ERROR", arguments); originalError.apply(console, arguments); };
+      console.log = function() { appendLog("LOG", arguments); originalLog.apply(console, arguments); };
+      console.warn = function() { appendLog("WARN", arguments); originalWarn.apply(console, arguments); };
+
+      window.onerror = function(message, source, lineno, colno, error) {
+        appendLog("ERROR", ["Uncaught Exception:", message, "at", source, lineno]);
+        return false;
+      };
+    };
+  </script>
+</head>
+
+<body>
+  <!-- Background radial glow effect -->
+  <div class="app-bg"></div>
+
+  <div id="app-container">
+    <!-- Top horizontal header (hidden on login screen) -->
+    <div class="top-header hidden">
+      <div class="header-left">
+        <img class="brand-logo" src="logo.png" alt="OpenNOW" />
+        <span class="brand-name">OpenNOW</span>
+      </div>
+      
+      <div class="header-center">
+        <button id="nav-store" class="nav-item focusable" tabindex="0">
+          <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px; vertical-align:middle;">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span>Store</span>
+        </button>
+        <button id="nav-library" class="nav-item focusable" tabindex="0">
+          <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px; vertical-align:middle;">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+          <span>Library</span>
+        </button>
+        <button id="nav-settings" class="nav-item focusable" tabindex="0">
+          <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px; vertical-align:middle;">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l-.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span>Settings</span>
+        </button>
+      </div>
+      
+      <div class="header-right">
+        <div class="sub-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#76b900" stroke-width="2.5" style="margin-right: 5px; vertical-align: middle;">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span>Unlimited time</span>
+        </div>
+        <div class="user-profile" style="display: flex; align-items: center; gap: 10px;">
+          <div class="profile-avatar" style="width: 32px; height: 32px; border-radius: 50%; background: #76b900; color: black; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">Z</div>
+          <div class="profile-info" style="display: flex; flex-direction: column;">
+            <span id="profile-name" class="profile-name" style="font-size:14px; font-weight:700;">Zaloguj12</span>
+            <span class="profile-status" style="font-size:11px; color:#76b900; font-weight:600;">FREE</span>
+          </div>
+        </div>
+        <button id="nav-logout" class="btn-logout focusable" tabindex="0" style="background:transparent; border:none; color:#eb5757; cursor:pointer; padding:5px; margin-left:10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main view displays -->
+    <div class="content-area">
+      <!-- 1. Authentication View -->
+      <div id="view-login" class="view login-panel active-view">
+        <!-- Centered branding header (like OpenStroid Desktop) -->
+        <div class="login-brand-header">
+          <img class="login-logo" src="logo.png" alt="OpenNOW" />
+          <div class="login-brand-text">
+            <h1 class="login-brand-title">OpenNOW TV</h1>
+            <p class="login-brand-subtitle">Sign in with Provider code</p>
+          </div>
+        </div>
+
+        <div class="login-card">
+          <!-- Left side: Provider selection and QR code -->
+          <div class="login-qr-section">
+            <div class="qr-code-frame">
+              <div id="qr-code-container"></div>
+            </div>
+            <div id="code-text" class="login-code-display">------</div>
+          </div>
+          
+          <!-- Right side: details and status -->
+          <div class="login-details">
+            <div class="login-badge">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+            </div>
+            <h2 class="login-title">Scan to Sign In</h2>
+            <p class="login-desc">Use your phone camera or the provider app</p>
+            <p class="login-subdesc">Select your provider to generate the code. Or click Login to finish sign-in in your browser. Stay on this page until you are redirected.</p>
+            
+            <!-- Provider Selection list -->
+            <div class="provider-section">
+              <div class="select-container">
+                <button id="provider-select" class="btn-select focusable" tabindex="0">
+                  <span>Select Provider</span>
+                  <span style="font-size:12px;">▼</span>
+                </button>
+                <div id="provider-dropdown" class="dropdown-menu">
+                  <!-- Dropdown items added dynamically -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Status Box (dark blue panel) -->
+            <div class="login-status-box">
+              <div class="status-title">Status: polling</div>
+              <div class="status-detail">Waiting for provider to verify this QR code.</div>
+              <div class="status-dots">
+                <span><span style="color:#2d9cdb;">●●●</span> Polling every 3s.</span>
+              </div>
+            </div>
+
+            <div class="login-actions">
+              <button class="btn-action-primary focusable" tabindex="0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px; vertical-align: middle;">
+                  <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"></path>
+                </svg>
+                <span>Login in Browser</span>
+              </button>
+              <button class="btn-action-newcode focusable" tabindex="0" onclick="window.location.reload()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px; vertical-align: middle;">
+                  <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+                </svg>
+                <span>New Code</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Catalog Library View -->
+      <div id="view-library" class="view">
+        <!-- Hero Banner Carousel -->
+        <div class="hero-carousel">
+          <div class="hero-slide active">
+            <div class="hero-content">
+              <h1 class="hero-game-title">Dark Scrolls</h1>
+              <div class="hero-actions">
+                <button class="btn-hero-play focusable" tabindex="0" style="background:#76b900; border:none; color:black; font-weight:bold; border-radius:8px;">Buy</button>
+                <button class="btn-hero-store focusable" tabindex="0" style="background:rgba(255, 255, 255, 0.1); border:1px solid rgba(255,255,255,0.2); color:white; font-weight:bold; border-radius:8px;">Steam</button>
+                <button class="btn-hero-more focusable" tabindex="0" style="background:rgba(255, 255, 255, 0.1); border:1px solid rgba(255,255,255,0.2); color:white; font-weight:bold; border-radius:8px;">...</button>
+              </div>
+            </div>
+            <div class="hero-image-container"></div>
+          </div>
+          <!-- Carousel Indicators -->
+          <div class="carousel-indicators">
+            <span class="indicator"></span>
+            <span class="indicator"></span>
+            <span class="indicator active"></span>
+            <span class="indicator"></span>
+            <span class="indicator"></span>
+          </div>
+        </div>
+
+        <div class="view-header" style="margin-top: 30px; margin-bottom: 20px;">
+          <div style="display:flex; align-items:baseline; gap:15px;">
+            <h1 class="view-title" style="font-size:38px; font-weight:800; margin-bottom:0;">Library</h1>
+            <span id="library-count" style="color: #9ba8b9; font-size:18px; font-weight:600;">0 games</span>
+          </div>
+        </div>
+        <div id="game-grid" class="game-grid">
+          <!-- Game cards loaded dynamically -->
+        </div>
+      </div>
+
+      <!-- 2b. GFN Store View -->
+      <div id="view-store" class="view">
+        <div class="view-header" style="margin-top: 20px; margin-bottom: 20px;">
+          <div style="display:flex; align-items:baseline; gap:15px;">
+            <h1 class="view-title" style="font-size:38px; font-weight:800; margin-bottom:0;">Store</h1>
+            <span id="store-count" style="color: #9ba8b9; font-size:18px; font-weight:600;">All games</span>
+          </div>
+        </div>
+        <div id="store-grid" class="game-grid">
+          <!-- Store game cards loaded dynamically -->
+        </div>
+      </div>
+
+      <!-- 3. Stream Settings View -->
+      <div id="view-settings" class="view">
+        <div class="view-header">
+          <h1 class="view-title">Settings</h1>
+          <p class="view-subtitle">Tune the stream capabilities for this TV</p>
+        </div>
+        
+        <div class="settings-group">
+          <div class="settings-label">Video Codec</div>
+          <div class="settings-desc">Select H.264 for widest compatibility or H.265 for better efficiency.</div>
+          <div class="settings-options">
+            <button class="settings-option-btn codec-btn focusable" tabindex="0" data-val="H264">H.264</button>
+            <button class="settings-option-btn codec-btn focusable" tabindex="0" data-val="H265">H.265 / HEVC</button>
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <div class="settings-label">Stream Resolution</div>
+          <div class="settings-desc">Choose resolution for gameplay. Mapped to your TV aspect ratio.</div>
+          <div class="settings-options">
+            <button class="settings-option-btn res-btn focusable" tabindex="0" data-val="1280x720">720p (HD)</button>
+            <button class="settings-option-btn res-btn focusable" tabindex="0" data-val="1920x1080">1080p (FHD)</button>
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <div class="settings-label">Max Bitrate</div>
+          <div class="settings-desc">Cap stream data consumption. Higher bitrate requires faster internet connection.</div>
+          <div class="settings-options">
+            <button class="settings-option-btn bitrate-btn focusable" tabindex="0" data-val="15000">15 Mbps</button>
+            <button class="settings-option-btn bitrate-btn focusable" tabindex="0" data-val="25000">25 Mbps</button>
+            <button class="settings-option-btn bitrate-btn focusable" tabindex="0" data-val="35000">35 Mbps</button>
+            <button class="settings-option-btn bitrate-btn focusable" tabindex="0" data-val="50000">50 Mbps (Max)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Bar -->
+    <div class="footer-bar hidden">
+      <div class="legends-left">
+        <div class="legend-item"><span class="legend-btn btn-a">A</span> <span class="legend-text">Select</span></div>
+        <div class="legend-item"><span class="legend-btn btn-b">B</span> <span class="legend-text">Back</span></div>
+        <div class="legend-item"><span class="legend-btn btn-y">Y</span> <span class="legend-text">Filter</span></div>
+        <div class="legend-item"><span class="legend-btn btn-x">X</span> <span class="legend-text">Search</span></div>
+      </div>
+      <div class="legends-right">
+        <div class="legend-item"><span class="legend-btn btn-menu">≡</span> <span class="legend-text">More Options</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Matchmaker Allocation Queue Overlay -->
+  <div id="matchmaker-overlay" style="display:none;">
+    <div class="matchmaker-panel">
+      <div class="spinner"></div>
+      <div id="matchmaker-status" class="matchmaker-title">Matching Server...</div>
+      <p id="matchmaker-detail" class="matchmaker-detail">Please hold on while NVIDIA reserves a gaming machine.</p>
+    </div>
+  </div>
+
+  <!-- Fullscreen Video Playout Container overlay -->
+  <div id="player-container">
+    <video id="stream-video" class="focusable" tabindex="0" autoplay playsinline></video>
+    
+    <!-- Escape Overlay Menu for TV Remote Back button in-game -->
+    <div id="escape-menu">
+      <h2 class="escape-title">Overlay Options</h2>
+      <button id="btn-close-escape" class="escape-btn focusable" tabindex="0">Return to Game</button>
+      <button id="btn-exit-stream" class="escape-btn btn-danger focusable" tabindex="0">End Game Session</button>
+    </div>
+  </div>
+
+  <!-- Loading scripts -->
+  <script src="webOSTVjs-1.2.13/webOSTV.js" charset="utf-8"></script>
+  <script src="webOSTVjs-1.2.13/webOSTV-dev.js" charset="utf-8"></script>
+  <script src="js/promise-polyfill.js" charset="utf-8"></script>
+  <script src="js/gfn-webrtc-bundle.js" charset="utf-8"></script>
+  <script src="js/qrcode.min.js" charset="utf-8"></script>
+  <script src="js/spatial-nav.js" charset="utf-8"></script>
+  <script src="js/gfn-client.js" charset="utf-8"></script>
+  <script src="js/gfn-webrtc.js" charset="utf-8"></script>
+  <script src="js/app.js" charset="utf-8"></script>
+</body>
+
+</html>
