@@ -35,7 +35,7 @@ jobs:
           npm run pack-p
           mkdir -p builds
           ares-package dist -o builds
-          release_version=$(printf '%02d' "$GITHUB_RUN_NUMBER")
+          release_version=$(printf '%02d' "$((GITHUB_RUN_NUMBER - 10))")
           package=$(find builds -maxdepth 1 -type f -name '*.ipk' -print -quit)
           test -n "$package"
           mv "$package" "builds/${release_version}-4.ipk"
@@ -46,7 +46,7 @@ jobs:
           mkdir -p package builds
           rsync -a --exclude '.git' --exclude '.github' --exclude 'builds' --exclude 'package' ./ package/
           ares-package package -o builds
-          release_version=$(printf '%02d' "$GITHUB_RUN_NUMBER")
+          release_version=$(printf '%02d' "$((GITHUB_RUN_NUMBER - 10))")
           package_file=$(find builds -maxdepth 1 -type f -name '*.ipk' -print -quit)
           test -n "$package_file"
           mv "$package_file" "builds/${release_version}-3.ipk"
@@ -55,7 +55,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          release_version=$(printf '%02d' "$GITHUB_RUN_NUMBER")
+          release_version=$(printf '%02d' "$((GITHUB_RUN_NUMBER - 10))")
           if [ "${GITHUB_REF_NAME}" = "4.0" ]; then
             artifact="builds/${release_version}-4.ipk"
             tag="4.0-${release_version}"
