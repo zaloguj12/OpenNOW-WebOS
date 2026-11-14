@@ -125,8 +125,10 @@ The application identifier is `com.zaloguj.opennow`.
 
 Every push to `4.0` runs the GitHub Actions workflow in
 `.github/workflows/release.yml`. It installs dependencies, creates the
-production Enact bundle, and publishes a GitHub release with the generated
-bundle ZIP attached. Pushes to `4.0-dev` do not create releases.
+production Enact bundle, packages it with the webOS CLI, and publishes a
+GitHub release with an IPK attached. The artifact is named
+`NN-4.ipk`, where `NN` is the two-digit GitHub release run number, for example
+`01-4.ipk` or `15-4.ipk`. Pushes to `4.0-dev` do not create releases.
 
 ## Known limits
 
