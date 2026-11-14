@@ -1,0 +1,13 @@
+{
+    "id": "com.zaloguj.opennow",
+    "version": "1.0.0",
+    "vendor": "Open Cloud Gaming",
+    "type": "web",
+    "main": "index.html",
+    "title": "OpenNOW",
+    "icon": "icon.png",
+    "requiredPermissions": [
+        "time.query",
+        "activity.operation"
+    ]
+}

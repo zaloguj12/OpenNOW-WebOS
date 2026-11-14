@@ -1,0 +1,103 @@
+.card {
+	background: #121722;
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 26px;
+	display: grid;
+	grid-template-rows: 1fr auto;
+	min-height: 232px;
+	overflow: hidden;
+	position: relative;
+	transition: border-color 160ms ease, transform 160ms ease;
+
+	&:focus,
+	&:hover { border-color: #7fd4ff; outline: none; transform: translateY(-4px); }
+}
+
+.featured { grid-column: span 2; min-height: 330px; }
+
+.art {
+	align-items: center;
+	background-color: #202832;
+	background-position: center;
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+
+	span {
+		color: rgba(255, 255, 255, .9);
+		font-size: 28px;
+		font-weight: 800;
+		max-width: 80%;
+		text-align: center;
+		letter-spacing: 0;
+	}
+}
+
+.artEpic { background-image: linear-gradient(135deg, #273d58, #172536 52%, #112333); }
+.artSteam { background-image: linear-gradient(135deg, #34404b, #202832 52%, #141b23); }
+.artXbox { background-image: linear-gradient(135deg, #34483d, #25372f 52%, #18241f); }
+
+.homeCard {
+	grid-template-rows: 1fr;
+	min-height: 205px;
+
+	.art { min-height: 205px; }
+	.art span { transform: translateY(-28px); }
+	.body {
+		background: linear-gradient(0deg, rgba(9, 13, 21, .98), rgba(9, 13, 21, .05));
+		bottom: 0;
+		gap: 5px;
+		left: 0;
+		padding: 48px 16px 14px;
+		position: absolute;
+		right: 0;
+	}
+	.body p { font-size: 11px; }
+	.body h2 { font-size: 19px; min-height: 0; }
+	.body h2 { max-width: 100%; overflow-wrap: anywhere; }
+	.meta { font-size: 12px; }
+}
+
+.homeCard.featured { min-height: 330px; }
+.homeCard.featured .art { min-height: 330px; }
+
+.body {
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+	padding: 18px 20px 20px;
+
+	p {
+		color: rgba(255, 255, 255, 0.64);
+		font-family: 'IBM Plex Mono', monospace;
+		font-size: 13px;
+		margin: 0;
+	}
+
+	h2 {
+		font-size: 23px;
+		line-height: 1.12;
+		margin: 0;
+		min-height: 50px;
+		overflow-wrap: anywhere;
+	}
+}
+
+.meta {
+	align-items: center;
+	display: flex;
+	font-size: 13px;
+	gap: 12px;
+	justify-content: space-between;
+	margin-top: auto;
+
+	span {
+		color: rgba(255, 255, 255, 0.64);
+	}
+
+	strong {
+		color: #6ee7b7;
+	}
+}
+
+.dot { color: rgba(255, 255, 255, 0.32); }

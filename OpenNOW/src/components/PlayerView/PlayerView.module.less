@@ -1,0 +1,27 @@
+.player { background-color: #020304; background-position: center; background-size: cover; height: calc(100vh - 72px); margin: -64px; overflow: hidden; position: relative; width: calc(100% + 128px); }
+.video { background: #020304; height: 100%; object-fit: contain; width: 100%; }
+.launchStage { align-items: center; display: grid; gap: 80px; grid-template-columns: minmax(0, 1fr) 420px; left: 50%; position: absolute; top: 50%; transform: translate(-50%, -50%); width: 1380px; }
+.launchStage h1 { font-size: 58px; line-height: 1.02; margin: 0 0 24px; }
+.launchCopy { color: rgba(255,255,255,.68); font-size: 19px; line-height: 1.45; max-width: 700px; }
+.eyebrow { color: #7fd4ff; font: 800 13px 'IBM Plex Mono', monospace; letter-spacing: .04em; text-transform: uppercase; }
+.steps { display: flex; flex-direction: column; gap: 12px; text-align: left; }
+.steps span { border-bottom: 1px solid rgba(255,255,255,.14); color: rgba(255,255,255,.42); padding: 12px 0; }
+.steps .done { color: #6ee7b7; }
+.steps .failed { color: #ff8a80; }
+.rigCard { background: rgba(14,16,24,.8); border: 1px solid rgba(255,255,255,.16); border-radius: 24px; display: flex; flex-direction: column; gap: 16px; padding: 28px; }
+.rigCard strong { font-size: 22px; }
+.rigCard span { color: rgba(255,255,255,.72); font-family: 'IBM Plex Mono', monospace; font-size: 13px; }
+.rigCard small { border-top: 1px solid rgba(255,255,255,.14); color: rgba(255,255,255,.5); line-height: 1.4; padding-top: 16px; }
+.guideTrigger { background: rgba(14,16,24,.86); border: 1px solid rgba(255,255,255,.2); border-radius: 18px; bottom: 28px; color: #fff; font: 700 15px Nunito,sans-serif; padding: 12px 18px; position: absolute; right: 30px; }
+.overlay { background: rgba(14,16,24,.94); border: 1px solid rgba(255,255,255,.14); border-radius: 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; height: calc(100% - 48px); padding: 32px; position: absolute; left: 24px; top: 24px; width: 590px; }
+.overlay h2 { font-size: 30px; line-height: 1.1; margin: 0 0 12px; }
+.overlay button { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: 14px; color: #fff; font: 700 15px Nunito,sans-serif; min-height: 46px; padding: 10px 14px; text-align: left; }
+.overlay button:focus, .guideTrigger:focus { outline: 2px solid #7fd4ff; outline-offset: 2px; }
+.utilityGrid { display: grid; gap: 8px; grid-template-columns: repeat(3,1fr); }
+.utilityGrid button { min-height: 92px; }
+.utilityGrid small { color: rgba(255,255,255,.5); display: block; font: 12px 'IBM Plex Mono', monospace; margin-top: 8px; }
+.resumeButton { background: #fff !important; color: #111827 !important; font-size: 17px !important; min-height: 64px !important; }
+.sessionMeta { color: rgba(255,255,255,.5); font: 12px 'IBM Plex Mono', monospace; }
+.endButton { color: #ff8a80 !important; margin-top: auto; }
+.toast { background: #fff; border-radius: 14px; bottom: 28px; color: #111827; font-size: 14px; left: 50%; padding: 12px 18px; position: absolute; transform: translateX(-50%); }
+.placeholderPanel { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 14px; color: rgba(255,255,255,.64); line-height: 1.4; padding: 18px; }
