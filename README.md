@@ -74,14 +74,17 @@ The exact package filename can vary with the installed webOS CLI version.
 
 ## Branches and releases
 
-- `3.0` is the release branch for this application.
+- `3.0` is the nightly release branch for this application.
 - `3.0-dev` is the development branch for ongoing work and testing.
 - Merge or push verified changes to `3.0` when they are ready for release.
 
 Every push to `3.0` runs the GitHub Actions workflow in
-`.github/workflows/release.yml`. It publishes a GitHub release with a ZIP of
-the complete 3.0 webOS application attached. Pushes to `3.0-dev` do not create
-releases.
+`.github/workflows/release.yml`. It packages the application with the webOS
+CLI and publishes a GitHub release with an IPK attached. The artifact is named
+`NN-3.ipk`, where `NN` is the two-digit GitHub release run number, for example
+`01-3.ipk` or `15-3.ipk`. These releases use generated release notes, are
+marked as prereleases, and use tags such as `3.0-nightly-01`. Pushes to
+`3.0-dev` do not create releases.
 
 ## Input
 
