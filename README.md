@@ -24,7 +24,7 @@ webOS browser runtime.
 ## Project layout
 
 ```text
-OpenNOW/
+.
 ├── index.html
 ├── css/style.css
 ├── js/
@@ -43,13 +43,15 @@ OpenNOW/
 └── README.md
 ```
 
+The repository root is the application root. There is no additional
+`OpenNOW/` wrapper directory.
+
 ## Development
 
 The application is served as static files. From the repository root, use any
 static HTTP server, for example:
 
 ```text
-cd OpenNOW
 python -m http.server 8080
 ```
 
@@ -69,6 +71,17 @@ ares-launch --device <device_name> com.zaloguj.opennow.basic
 ```
 
 The exact package filename can vary with the installed webOS CLI version.
+
+## Branches and releases
+
+- `3.0` is the release branch for this application.
+- `3.0-dev` is the development branch for ongoing work and testing.
+- Merge or push verified changes to `3.0` when they are ready for release.
+
+Every push to `3.0` runs the GitHub Actions workflow in
+`.github/workflows/release.yml`. It publishes a GitHub release with a ZIP of
+the complete 3.0 webOS application attached. Pushes to `3.0-dev` do not create
+releases.
 
 ## Input
 
