@@ -127,10 +127,11 @@ Every push to `4.0` runs the GitHub Actions workflow in
 `.github/workflows/release.yml`. It installs dependencies, creates the
 production Enact bundle, packages it with the webOS CLI, and publishes a
 GitHub release with an IPK attached. The artifact is named
-`NN-4.ipk`, where `NN` is the two-digit GitHub release run number, for example
+`NN-4.ipk`, where `NN` is the two-digit 4.0 release sequence, for example
 `01-4.ipk` or `15-4.ipk`. These releases use generated release notes and tags
-such as `4.0-01`. The current release sequence has been reset so the next
-normal push starts at `00-4.ipk`. Pushes to `4.0-dev` do not create releases.
+such as `4.0-01`. The sequence is independent of 3.0 and starts at
+`00-4.ipk` when no 4.0 releases exist. Pushes to `4.0-dev` do not create
+releases.
 
 ## Known limits
 
