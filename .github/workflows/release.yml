@@ -28,6 +28,8 @@ jobs:
 
       - name: Build 4.0 IPK
         if: github.ref_name == '4.0'
+        env:
+          CI: false
         run: |
           npm install
           npm run pack-p
