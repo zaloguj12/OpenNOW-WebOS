@@ -119,7 +119,7 @@ The application identifier is `com.zaloguj.opennow`.
 
 ## Branches and releases
 
-- `4.0` is the release branch for this application.
+- `4.0` is the stable release branch for this application.
 - `4.0-dev` is the development branch for ongoing work and testing.
 - Merge or push verified changes to `4.0` when they are ready for release.
 
@@ -128,7 +128,8 @@ Every push to `4.0` runs the GitHub Actions workflow in
 production Enact bundle, packages it with the webOS CLI, and publishes a
 GitHub release with an IPK attached. The artifact is named
 `NN-4.ipk`, where `NN` is the two-digit GitHub release run number, for example
-`01-4.ipk` or `15-4.ipk`. Pushes to `4.0-dev` do not create releases.
+`01-4.ipk` or `15-4.ipk`. These releases use generated release notes and tags
+such as `4.0-01`. Pushes to `4.0-dev` do not create releases.
 
 ## Known limits
 

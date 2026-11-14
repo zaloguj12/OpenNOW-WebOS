@@ -56,11 +56,15 @@ jobs:
           release_version=$(printf '%02d' "$GITHUB_RUN_NUMBER")
           if [ "${GITHUB_REF_NAME}" = "4.0" ]; then
             artifact="builds/${release_version}-4.ipk"
-            tag="4.0-build-${GITHUB_RUN_NUMBER}"
+            tag="4.0-${release_version}"
+            title="4.0 release ${release_version}"
+            release_flags=""
           else
             artifact="builds/${release_version}-3.ipk"
-            tag="3.0-build-${GITHUB_RUN_NUMBER}"
+            tag="3.0-nightly-${release_version}"
+            title="3.0 nightly ${release_version}"
+            release_flags="--prerelease"
           fi
           gh release create "$tag" "$artifact" \
-            --title "$GITHUB_REF_NAME build $GITHUB_RUN_NUMBER" \
-            --generate-notes
+            --title "$title" \
+            --generate-notes $release_flags
