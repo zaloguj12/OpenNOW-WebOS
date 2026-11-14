@@ -433,7 +433,7 @@ export async function createSession ({authSession = loadAuthSession(), game, set
 			method: 'POST'
 		});
 	} catch (error) {
-		throw new Error(`${error.message} A previous allocation may need recovery before retrying.`);
+		throw new Error(`${error.message} A previous allocation may need recovery before retrying.`, {cause: error});
 	}
 
 	const session = normalizeSession(data, base, String(game.launchAppId || game.id));
